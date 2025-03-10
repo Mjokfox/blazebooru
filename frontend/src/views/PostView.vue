@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, toRefs } from "vue";
-import { useRouter } from "vue-router";
+import { computed, onMounted, ref, toRefs, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 
 import PostComment from "../components/comment/PostComment.vue";
 import MainLayout from "@/components/MainLayout.vue";
@@ -13,6 +13,7 @@ import { usePostStore } from "@/stores/post";
 import type { Comment } from "@/models/api/comment";
 import type { Post as PostModel, UpdatePost } from "@/models/api/post";
 import { make_image_path } from "@/utils/path";
+import { onKeyDown } from "@vueuse/core";
 
 const props = defineProps<{
   id: number;
@@ -20,6 +21,7 @@ const props = defineProps<{
 
 const { id } = toRefs(props);
 
+const route = useRoute();
 const router = useRouter();
 
 const authStore = useAuthStore();
@@ -39,6 +41,10 @@ const file_url = computed(() => {
   }
 
   return make_image_path(post.value);
+});
+
+watch(route, () => {
+  fetchPost();
 });
 
 onMounted(async () => {
@@ -87,6 +93,49 @@ const clickTag = async (tag: string) => {
   await mainStore.searchPosts({ tags: [tag], exclude_tags: [] });
   router.push({ name: "browse" });
 };
+
+const navigatePost = async (v: number) => {
+  if (v === 0) {
+    return;
+  }
+
+  const curr_post_index = mainStore.currentPosts.findIndex((p) => p.id === id.value);
+  let to_post_index = curr_post_index + v;
+
+  if (to_post_index < 0) {
+    if (mainStore.currentPage <= 1) {
+      return;
+    }
+
+    await mainStore.loadPage(mainStore.currentPage - 1);
+    to_post_index = mainStore.currentPosts.length + to_post_index;
+  } else if (to_post_index >= mainStore.currentPosts.length) {
+    to_post_index = to_post_index - mainStore.currentPosts.length;
+    await mainStore.loadPage(mainStore.currentPage + 1);
+  }
+
+  const to_post_id = mainStore.currentPosts[to_post_index].id;
+
+  router.push({ name: "post", params: { id: to_post_id } });
+};
+
+onKeyDown("ArrowLeft", async (e) => {
+  if (!expand_image.value || e.ctrlKey) {
+    return;
+  }
+
+  e.preventDefault();
+  navigatePost(-1);
+});
+
+onKeyDown("ArrowRight", async (e) => {
+  if (!expand_image.value || e.ctrlKey) {
+    return;
+  }
+
+  e.preventDefault();
+  navigatePost(1);
+});
 </script>
 
 <template>

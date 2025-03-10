@@ -7,19 +7,23 @@ const uploadStore = useUploadStore();
 <template>
   <div class="upload-progress">
     <table class="queue-table">
-      <tr>
-        <th>Filename</th>
-        <th>Status</th>
-      </tr>
-      <tr v-for="qp in uploadStore.queuedPosts">
-        <td>
-          {{ qp.file.name }}
-        </td>
-        <td>
-          <span v-if="qp.is_uploading">{{ qp.progress }}%</span>
-          <span v-if="!!qp.post_id"><i class="fa-solid fa-check"></i></span>
-        </td>
-      </tr>
+      <thead>
+        <tr>
+          <th>Filename</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="qp in uploadStore.queuedPosts">
+          <td>
+            {{ qp.file.name }}
+          </td>
+          <td>
+            <span v-if="qp.is_uploading">{{ qp.progress }}%</span>
+            <span v-if="!!qp.post_id"><i class="fa-solid fa-check"></i></span>
+          </td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </template>

@@ -134,10 +134,12 @@ const clickTag = async (tag: string) => {
       <div class="layout">
         <table class="tags-table">
           <thead>
-            <th>Tag</th>
-            <th>Aliases</th>
-            <th>Implied tags</th>
-            <th v-if="can_edit">Actions</th>
+            <tr>
+              <th>Tag</th>
+              <th>Aliases</th>
+              <th>Implied tags</th>
+              <th v-if="can_edit">Actions</th>
+            </tr>
           </thead>
           <tbody>
             <tr v-for="t of tags" :key="t.id" class="tag">

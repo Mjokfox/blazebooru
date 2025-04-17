@@ -1,3 +1,5 @@
+DROP FUNCTION calculate_last_page;
+
 CREATE FUNCTION calculate_last_page(
   IN p_include_tags text[],
   IN p_exclude_tags text[],

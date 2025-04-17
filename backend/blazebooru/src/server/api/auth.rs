@@ -3,7 +3,7 @@ use std::sync::Arc;
 use axum::extract::State;
 use axum::routing::post;
 use axum::{Json, Router};
-use axum_client_ip::SecureClientIp;
+use axum_client_ip::ClientIp;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
@@ -41,7 +41,7 @@ pub fn router() -> Router<Arc<BlazeBooruServer>> {
 #[axum::debug_handler(state = Arc<BlazeBooruServer>)]
 async fn login(
     State(server): State<Arc<BlazeBooruServer>>,
-    SecureClientIp(ip): SecureClientIp,
+    ClientIp(ip): ClientIp,
     Json(req): Json<LoginRequest>,
 ) -> Result<Json<LoginResponse>, ApiError> {
     let user = server.core.login(&req.name, &req.password).await?;
@@ -79,7 +79,7 @@ async fn logout(State(server): State<Arc<BlazeBooruServer>>, auth: Authorized) -
 #[axum::debug_handler(state = Arc<BlazeBooruServer>)]
 async fn refresh(
     State(server): State<Arc<BlazeBooruServer>>,
-    SecureClientIp(ip): SecureClientIp,
+    ClientIp(ip): ClientIp,
     Json(req): Json<RefreshRequest>,
 ) -> Result<Json<LoginResponse>, ApiError> {
     if let Some(lm::RefreshRefreshTokenResult {

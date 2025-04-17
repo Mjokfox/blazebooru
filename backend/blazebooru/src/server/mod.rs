@@ -5,7 +5,7 @@ use std::{net::SocketAddr, sync::Arc};
 use axum::http::StatusCode;
 use axum::response::IntoResponse;
 use axum::Router;
-use axum_client_ip::SecureClientIpSource;
+use axum_client_ip::ClientIpSource;
 use futures::Future;
 use thiserror::Error;
 use tokio::net::TcpListener;
@@ -57,7 +57,7 @@ impl BlazeBooruServer {
 
         let app = app
             .layer(tower_http::trace::TraceLayer::new_for_http())
-            .layer(SecureClientIpSource::RightmostXForwardedFor.into_extension())
+            .layer(ClientIpSource::RightmostXForwardedFor.into_extension())
             .with_state(server);
 
         let addr: SocketAddr = "[::]:3000".parse().unwrap();

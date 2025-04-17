@@ -3,7 +3,7 @@ use std::sync::Arc;
 use axum::extract::State;
 use axum::routing::{get, post};
 use axum::{Json, Router};
-use axum_client_ip::SecureClientIp;
+use axum_client_ip::ClientIp;
 use serde::Deserialize;
 
 use blazebooru_models::local as lm;
@@ -39,7 +39,7 @@ async fn get_user_profile(
 #[axum::debug_handler(state = Arc<BlazeBooruServer>)]
 async fn register_user(
     State(server): State<Arc<BlazeBooruServer>>,
-    SecureClientIp(ip): SecureClientIp,
+    ClientIp(ip): ClientIp,
     Json(req): Json<RegisterUserRequest>,
 ) -> Result<Json<LoginResponse>, ApiError> {
     if !server.config.allow_registration {

@@ -1,6 +1,6 @@
-import { ref } from "vue";
+import axios, { type AxiosError } from "axios";
 import { defineStore } from "pinia";
-import axios, { AxiosError } from "axios";
+import { ref } from "vue";
 
 import { useAuthStore } from "./auth";
 
@@ -93,7 +93,7 @@ export const useUploadStore = defineStore("upload", () => {
           break;
         }
 
-        var n = 0;
+        let n = 0;
 
         for (const up of uploadPosts) {
           up.is_processed = true;
@@ -128,7 +128,7 @@ export const useUploadStore = defineStore("upload", () => {
           } catch (err: any) {
             const _err = err as AxiosError;
 
-            var msg: string;
+            let msg: string;
             if (_err.response) {
               msg = _err.response.data as string;
             } else {

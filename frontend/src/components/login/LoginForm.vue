@@ -2,9 +2,7 @@
 import type { LoginRequest } from "@/models/api/login";
 import { reactive, ref } from "vue";
 
-const emit = defineEmits<{
-  (e: "log-in", request: LoginRequest): void;
-}>();
+const emit = defineEmits<(e: "log-in", request: LoginRequest) => void>();
 
 const usernameInput = ref<HTMLInputElement>();
 

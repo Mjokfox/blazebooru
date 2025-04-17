@@ -1,13 +1,13 @@
-import { ref, computed } from "vue";
-import { defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
 import axios from "axios";
+import { defineStore } from "pinia";
+import { computed, ref } from "vue";
 
 import { useAuthStore } from "./auth";
 
 import type { PageInfo, Post, UpdatePost } from "@/models/api/post";
-import { DEFAULT_SETTINGS, type Settings } from "@/models/settings";
 import type { SysConfig } from "@/models/api/sys";
+import { DEFAULT_SETTINGS, type Settings } from "@/models/settings";
 
 export interface Search {
   tags: string[];
@@ -234,7 +234,7 @@ export const useMainStore = defineStore("main", () => {
     return calculatedPages[page];
   }
 
-  async function loadPage(page: number, force: boolean = false) {
+  async function loadPage(page: number, force = false) {
     // Make sure the page being loaded is a valid number
     page = Math.max(1, Math.min(page, pageCount.value));
 

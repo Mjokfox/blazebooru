@@ -2,8 +2,8 @@
 import { computed, onMounted, ref, toRefs, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
-import PostComment from "../components/comment/PostComment.vue";
 import MainLayout from "@/components/MainLayout.vue";
+import PostComment from "@/components/comment/PostComment.vue";
 import PostInfo from "@/components/post/PostInfo.vue";
 
 import { useAuthStore } from "@/stores/auth";
@@ -144,27 +144,15 @@ onKeyDown("ArrowRight", async (e) => {
       <!-- Desktop -->
       <div class="layout desktop">
         <div class="layout-side">
-          <PostInfo
-            v-if="post"
-            :post="post"
-            :can_edit_post="can_edit_post"
-            :can_edit_tags="can_edit_tags"
-            @clickTag="clickTag"
-            @delete="deletePost"
-            @update="updatePost"
-          />
+          <PostInfo v-if="post" :post="post" :can_edit_post="can_edit_post" :can_edit_tags="can_edit_tags"
+            @clickTag="clickTag" @delete="deletePost" @update="updatePost" />
           <label>Comments</label>
           <div class="post-comments">
             <PostComment v-for="c in comments" :key="c.id" :comment="c" />
           </div>
           <form class="comment-form" @submit.prevent="postComment">
-            <textarea
-              class="comment-field"
-              name="comment"
-              v-model="postStore.newComment"
-              placeholder="Comment"
-              wrap="soft"
-            ></textarea>
+            <textarea class="comment-field" name="comment" v-model="postStore.newComment" placeholder="Comment"
+              wrap="soft"></textarea>
 
             <div class="form-buttons">
               <input class="post-button" type="submit" value="Post comment" :disabled="!postStore.newComment" />
@@ -188,26 +176,15 @@ onKeyDown("ArrowRight", async (e) => {
           </a>
         </div>
         <div class="post-info">
-          <PostInfo
-            v-if="post"
-            :post="post"
-            :can_edit_post="can_edit_post"
-            @clickTag="clickTag"
-            @delete="deletePost"
-            @update="updatePost"
-          />
+          <PostInfo v-if="post" :post="post" :can_edit_post="can_edit_post" @clickTag="clickTag" @delete="deletePost"
+            @update="updatePost" />
           <label>Comments</label>
           <div class="post-comments">
             <PostComment v-for="c in comments" :key="c.id" :comment="c" />
           </div>
           <form class="comment-form" @submit.prevent="postComment">
-            <textarea
-              class="comment-field"
-              name="comment"
-              v-model="postStore.newComment"
-              placeholder="Comment"
-              wrap="soft"
-            ></textarea>
+            <textarea class="comment-field" name="comment" v-model="postStore.newComment" placeholder="Comment"
+              wrap="soft"></textarea>
 
             <div class="form-buttons">
               <input class="post-button" type="submit" value="Post comment" :disabled="!postStore.newComment" />

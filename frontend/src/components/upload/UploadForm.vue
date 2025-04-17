@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, reactive, ref, toRefs, watch } from "vue";
 import { filesize } from "filesize";
+import { computed, reactive, ref, toRefs, watch } from "vue";
 
 import TagsEditor from "@/components/tag/TagsEditor.vue";
 

@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import LoginView from "@/views/LoginView.vue";
-import RegisterView from "@/views/RegisterView.vue";
-import PostView from "@/views/PostView.vue";
 import BrowseView from "@/views/BrowseView.vue";
-import UploadView from "@/views/UploadView.vue";
+import LoginView from "@/views/LoginView.vue";
+import PostView from "@/views/PostView.vue";
+import RegisterView from "@/views/RegisterView.vue";
 import TagsView from "@/views/TagsView.vue";
 import UploadProgressView from "@/views/UploadProgressView.vue";
+import UploadView from "@/views/UploadView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

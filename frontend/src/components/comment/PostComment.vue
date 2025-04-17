@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { toRefs } from "vue";
 import { format, isSameDay, isSameYear, parseJSON } from "date-fns";
+import { toRefs } from "vue";
 
 import CommentText from "./CommentText.vue";
 

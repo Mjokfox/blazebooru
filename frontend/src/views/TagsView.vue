@@ -1,12 +1,12 @@
 <script setup lang="ts">
+import { onKeyDown } from "@vueuse/core";
 import { computed, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
-import { onKeyDown } from "@vueuse/core";
 
+import MainLayout from "@/components/MainLayout.vue";
 import Button from "@/components/common/Button.vue";
 import Dialog from "@/components/common/Dialog.vue";
 import Toolbar from "@/components/common/Toolbar.vue";
-import MainLayout from "@/components/MainLayout.vue";
 import TagEntry from "../components/tag/TagEntry.vue";
 import Tags from "../components/tag/Tags.vue";
 import TagsEditor from "../components/tag/TagsEditor.vue";

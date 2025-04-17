@@ -1,5 +1,5 @@
-var navBack = false;
-var clearTimer: number | undefined;
+let navBack = false;
+let clearTimer: number | undefined;
 
 window.addEventListener("popstate", onNavigatedBack);
 

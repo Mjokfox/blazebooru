@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import { nextTick, onBeforeMount, onMounted, ref, watch } from "vue";
-import { useRoute, useRouter, type LocationQueryValue } from "vue-router";
+import { type LocationQueryValue, useRoute, useRouter } from "vue-router";
 
 import MainLayout from "@/components/MainLayout.vue";
+import PoweredBy from "@/components/about/PoweredBy.vue";
 import Posts from "@/components/post/Posts.vue";
 import SearchForm from "@/components/post/SearchForm.vue";
 
 import { useAuthStore } from "@/stores/auth";
-import { useMainStore, type Search } from "@/stores/main";
-import PoweredBy from "../components/about/PoweredBy.vue";
+import { type Search, useMainStore } from "@/stores/main";
+import { getIsNavBack } from "@/utils/detect-navback";
 import { onKeyDown } from "@vueuse/core";
 import { storeToRefs } from "pinia";
-import { getIsNavBack } from "@/utils/detect-navback";
 
 const route = useRoute();
 const router = useRouter();
@@ -50,8 +50,8 @@ const scrollToTop = () => {
   window.scrollTo(0, 0);
 };
 
-const loadData = async (isNavBack: boolean = false) => {
-  const page = parseInt((route.query.p as LocationQueryValue) || "");
+const loadData = async (isNavBack = false) => {
+  const page = Number.parseInt((route.query.p as LocationQueryValue) || "");
   if (page) {
     await mainStore.loadPage(page);
 
@@ -163,23 +163,16 @@ const setTag = (tag: string) => {
         <div class="content">
           <Posts v-if="mainStore.currentPosts" :posts="mainStore.currentPosts" />
           <div v-if="mainStore.pageCount > 1" class="pages">
-            <router-link :to="{ name: 'browse', query: { p: 1 } }" class="page first" title="First page"
-              >&lt;&lt;</router-link
-            >
+            <router-link :to="{ name: 'browse', query: { p: 1 } }" class="page first"
+              title="First page">&lt;&lt;</router-link>
             [
-            <router-link
-              v-for="p in pageNumbers"
-              :key="p"
-              :to="{ name: 'browse', query: { p } }"
-              class="page"
-              :class="{ current: p === mainStore.currentPage }"
-            >
+            <router-link v-for="p in pageNumbers" :key="p" :to="{ name: 'browse', query: { p } }" class="page"
+              :class="{ current: p === mainStore.currentPage }">
               {{ p }}
             </router-link>
             ]
-            <router-link :to="{ name: 'browse', query: { p: mainStore.pageCount } }" class="page last" title="Last page"
-              >>></router-link
-            >
+            <router-link :to="{ name: 'browse', query: { p: mainStore.pageCount } }" class="page last"
+              title="Last page">>></router-link>
           </div>
         </div>
       </div>
@@ -192,23 +185,16 @@ const setTag = (tag: string) => {
         </div>
         <div class="search-panel">
           <div v-if="mainStore.pageCount > 1" class="pages">
-            <router-link :to="{ name: 'browse', query: { p: 1 } }" class="page first" title="First page"
-              >&lt;&lt;</router-link
-            >
+            <router-link :to="{ name: 'browse', query: { p: 1 } }" class="page first"
+              title="First page">&lt;&lt;</router-link>
             [
-            <router-link
-              v-for="p in pageNumbersMobile"
-              :key="p"
-              :to="{ name: 'browse', query: { p } }"
-              class="page"
-              :class="{ current: p === mainStore.currentPage }"
-            >
+            <router-link v-for="p in pageNumbersMobile" :key="p" :to="{ name: 'browse', query: { p } }" class="page"
+              :class="{ current: p === mainStore.currentPage }">
               {{ p }}
             </router-link>
             ]
-            <router-link :to="{ name: 'browse', query: { p: mainStore.pageCount } }" class="page last" title="Last page"
-              >>></router-link
-            >
+            <router-link :to="{ name: 'browse', query: { p: mainStore.pageCount } }" class="page last"
+              title="Last page">>></router-link>
           </div>
           <SearchForm v-model="search" />
         </div>

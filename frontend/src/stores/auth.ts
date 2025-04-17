@@ -1,7 +1,7 @@
-import { computed, ref } from "vue";
-import { defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
 import axios from "axios";
+import { defineStore } from "pinia";
+import { computed, ref } from "vue";
 
 import type { LoginRequest, LoginResponse } from "@/models/api/login";
 import type { User } from "@/models/api/user";
@@ -42,7 +42,7 @@ export const useAuthStore = defineStore("auth", () => {
 
   async function login(request: LoginRequest) {
     try {
-      const response = await axios.post<LoginResponse>(`/api/auth/login`, request);
+      const response = await axios.post<LoginResponse>("/api/auth/login", request);
       auth.value = response.data;
 
       await getUserProfile();
@@ -89,7 +89,7 @@ export const useAuthStore = defineStore("auth", () => {
     }
 
     try {
-      const res = await axios.get<User>(`/api/user/profile`, {
+      const res = await axios.get<User>("/api/user/profile", {
         headers: await getAuthHeaders(),
       });
 

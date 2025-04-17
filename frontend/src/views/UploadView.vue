@@ -7,7 +7,7 @@ import UploadForm from "@/components/upload/UploadForm.vue";
 
 import { useAuthStore } from "@/stores/auth";
 import { useMainStore } from "@/stores/main";
-import { useUploadStore, type StagedPost } from "@/stores/upload";
+import { type StagedPost, useUploadStore } from "@/stores/upload";
 
 const router = useRouter();
 

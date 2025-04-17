@@ -11,9 +11,7 @@ const props = withDefaults(defineProps<Props>(), {
   button: false,
 });
 
-const emit = defineEmits<{
-  (e: "enter", tags: string[], exclude_tags: string[]): void;
-}>();
+const emit = defineEmits<(e: "enter", tags: string[], exclude_tags: string[]) => void>();
 
 const { button } = toRefs(props);
 

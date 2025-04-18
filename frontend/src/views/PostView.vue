@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, toRefs, watch } from "vue";
+import { computed, onMounted, ref, shallowRef, toRefs, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 import MainLayout from "@/components/MainLayout.vue";
@@ -13,7 +13,7 @@ import { usePostStore } from "@/stores/post";
 import type { Comment } from "@/models/api/comment";
 import type { Post as PostModel, UpdatePost } from "@/models/api/post";
 import { make_image_path } from "@/utils/path";
-import { onKeyDown } from "@vueuse/core";
+import { onKeyDown, useSwipe } from "@vueuse/core";
 
 const props = defineProps<{
   id: number;
@@ -42,6 +42,8 @@ const file_url = computed(() => {
 
   return make_image_path(post.value);
 });
+
+const expandedImage = shallowRef<HTMLDivElement | null>(null);
 
 watch(route, () => {
   fetchPost();
@@ -136,6 +138,18 @@ onKeyDown("ArrowRight", async (e) => {
   e.preventDefault();
   navigatePost(1);
 });
+
+const { direction } = useSwipe(expandedImage, {
+  onSwipeEnd(e: TouchEvent) {
+    if (direction.value === "left") {
+      e.preventDefault();
+      navigatePost(1);
+    } else if (direction.value === "right") {
+      e.preventDefault();
+      navigatePost(-1);
+    }
+  },
+});
 </script>
 
 <template>
@@ -192,7 +206,7 @@ onKeyDown("ArrowRight", async (e) => {
           </form>
         </div>
       </div>
-      <div v-if="expand_image" class="expanded-image" @click.prevent="expand_image = false">
+      <div ref="expandedImage" v-if="expand_image" class="expanded-image" @click.prevent="expand_image = false">
         <a :href="file_url">
           <img :src="file_url" alt="Image" />
         </a>

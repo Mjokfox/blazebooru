@@ -5,8 +5,8 @@ use std::{
 };
 
 use serde::{
-    de::{self, Visitor},
     Deserializer,
+    de::{self, Visitor},
 };
 
 pub fn comma_separated<'de, V, T, D>(deserializer: D) -> Result<V, D::Error>

@@ -10,8 +10,8 @@ use blazebooru_models::local as lm;
 use blazebooru_models::view as vm;
 
 use crate::auth::{AuthClaims, JwtClaims, SessionClaims};
-use crate::server::api::auth::LoginResponse;
 use crate::server::api::Authorized;
+use crate::server::api::auth::LoginResponse;
 use crate::server::{ApiError, BlazeBooruServer};
 
 #[derive(Debug, Deserialize)]

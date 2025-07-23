@@ -1,6 +1,6 @@
 use anyhow::Context;
 
-use crate::{models as dbm, PgStore, StoreError};
+use crate::{PgStore, StoreError, models as dbm};
 
 impl PgStore {
     pub async fn get_post(&self, id: i32) -> Result<Option<dbm::Post>, StoreError> {

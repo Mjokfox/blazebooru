@@ -1,6 +1,8 @@
 use std::sync::Arc;
 
-use anyhow::{anyhow, Context};
+use anyhow::{Context, anyhow};
+use axum::Json;
+use axum::Router;
 use axum::extract::DefaultBodyLimit;
 use axum::extract::Multipart;
 use axum::extract::Path;
@@ -8,8 +10,6 @@ use axum::extract::Query;
 use axum::extract::State;
 use axum::handler::Handler;
 use axum::routing::{get, post};
-use axum::Json;
-use axum::Router;
 use serde::Deserialize;
 
 use blazebooru_core::config::BlazeBooruConfig;
@@ -17,9 +17,9 @@ use blazebooru_models::local as lm;
 use blazebooru_models::local::HashedFile;
 use blazebooru_models::view as vm;
 
-use crate::server::api::Authorized;
 use crate::server::ApiError;
 use crate::server::BlazeBooruServer;
+use crate::server::api::Authorized;
 
 #[derive(Deserialize)]
 struct CalculatePagesQuery {

@@ -4,7 +4,7 @@ use clap::Parser;
 use tracing::{debug, info};
 use tracing_subscriber::{EnvFilter, FmtSubscriber};
 
-use blazebooru_core::{config::BlazeBooruConfig, BlazeBooruCore};
+use blazebooru_core::{BlazeBooruCore, config::BlazeBooruConfig};
 
 mod auth;
 mod command;

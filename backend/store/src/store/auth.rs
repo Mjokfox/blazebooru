@@ -4,8 +4,8 @@ use anyhow::Context;
 use uuid::Uuid;
 
 use crate::{
-    models::{CreateRefreshTokenResult, RefreshRefreshTokenResult},
     PgStore,
+    models::{CreateRefreshTokenResult, RefreshRefreshTokenResult},
 };
 
 impl PgStore {

@@ -2,9 +2,9 @@ mod api;
 
 use std::{net::SocketAddr, sync::Arc};
 
+use axum::Router;
 use axum::http::StatusCode;
 use axum::response::IntoResponse;
-use axum::Router;
 use axum_client_ip::ClientIpSource;
 use futures::Future;
 use thiserror::Error;
@@ -12,7 +12,7 @@ use tokio::net::TcpListener;
 use tower_http::services::ServeDir;
 use tracing::{error, info};
 
-use blazebooru_core::{config::BlazeBooruConfig, BlazeBooruCore};
+use blazebooru_core::{BlazeBooruCore, config::BlazeBooruConfig};
 
 use crate::auth::{AuthError, BlazeBooruAuth};
 

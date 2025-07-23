@@ -1,17 +1,17 @@
 use std::sync::Arc;
 
 use anyhow::Context;
+use axum::Json;
+use axum::Router;
 use axum::extract::Path;
 use axum::extract::State;
 use axum::routing::{get, post};
-use axum::Json;
-use axum::Router;
 
 use blazebooru_models::view as vm;
 
-use crate::server::api::Authorized;
 use crate::server::ApiError;
 use crate::server::BlazeBooruServer;
+use crate::server::api::Authorized;
 
 pub fn router() -> Router<Arc<BlazeBooruServer>> {
     Router::new()

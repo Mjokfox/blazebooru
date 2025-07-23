@@ -2,7 +2,7 @@ use std::env;
 
 use anyhow::Context;
 
-use blazebooru_core::{config::BlazeBooruConfig, BlazeBooruCore};
+use blazebooru_core::{BlazeBooruCore, config::BlazeBooruConfig};
 
 use crate::{auth::BlazeBooruAuth, server::BlazeBooruServer};
 

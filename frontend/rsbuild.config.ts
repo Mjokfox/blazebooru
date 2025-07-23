@@ -4,11 +4,6 @@ import { pluginVue } from "@rsbuild/plugin-vue";
 
 export default defineConfig({
   plugins: [pluginSass(), pluginVue()],
-  source: {
-    alias: {
-      "@": "./src",
-    },
-  },
   html: {
     template: "./index.html",
     favicon: "./favicon.ico",

@@ -17,7 +17,6 @@ axum-client-ip = { workspace = true }
 axum-extra = { workspace = true, features = ["typed-header"] }
 chrono = { workspace = true }
 clap = { workspace = true, features = ["derive"] }
-dotenv = { workspace = true }
 futures = { workspace = true }
 jsonwebtoken = { workspace = true }
 serde = { workspace = true }

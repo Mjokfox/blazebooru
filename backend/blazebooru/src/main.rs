@@ -71,6 +71,8 @@ async fn main() -> Result<(), anyhow::Error> {
 
     debug!("Debug logging enabled.");
 
+    dotenv::dotenv().ok();
+
     let config = BlazeBooruConfig::from_default_location()?;
     let core = BlazeBooruCore::new(&config)?;
 

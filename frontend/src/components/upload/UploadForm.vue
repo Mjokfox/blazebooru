@@ -94,9 +94,22 @@ const filesDropped = (files: File[] | null) => {
   for (const file of files) {
     addFile(file);
   }
+  dropLeave();
 };
 
-useDropZone(dropZoneRef, { onDrop: filesDropped });
+const dropOver = () => {
+  if (dropZoneRef.value){
+    dropZoneRef.value.style.borderStyle = "dashed";
+  }
+}
+
+const dropLeave = () => {
+  if (dropZoneRef.value){
+    dropZoneRef.value.style.borderStyle = "none";
+  }
+}
+
+useDropZone(dropZoneRef, { onDrop: filesDropped, onOver: dropOver, onLeave: dropLeave });
 
 const canSubmit = computed(() => {
   return vm.posts.length > 0;

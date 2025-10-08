@@ -69,6 +69,7 @@ main {
   gap: 1rem;
 
   height: 100%;
+  min-height: 50vh;
 }
 
 .title {

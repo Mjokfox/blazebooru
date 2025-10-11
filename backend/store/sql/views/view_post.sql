@@ -17,5 +17,5 @@ SELECT
   p.tn_ext,
   p.tags
 FROM post AS p
-JOIN "user" AS u ON u.id = p.user_id
+JOIN users AS u ON u.id = p.user_id
 WHERE NOT is_deleted;

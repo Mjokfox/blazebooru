@@ -1,24 +1,24 @@
 CREATE FUNCTION create_user(
   IN p_user new_user
 )
-RETURNS "user"
+RETURNS users
 LANGUAGE plpgsql
 
 AS $BODY$
 DECLARE
-  v_user "user";
+  v_user users;
   v_rank smallint;
 BEGIN
   -- If there are no existing users,
   -- make the new one a giga-admin.
-  IF NOT EXISTS(SELECT * FROM "user") THEN
+  IF NOT EXISTS(SELECT * FROM users) THEN
     v_rank := 9001;
   ELSE
     v_rank := 0;
   END IF;
 
   -- Insert user
-  INSERT INTO "user" (
+  INSERT INTO users (
     name,
     password_hash,
     rank

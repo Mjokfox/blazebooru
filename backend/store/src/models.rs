@@ -9,6 +9,8 @@ pub struct User {
     pub name: String,
     pub password_hash: String,
     pub rank: i16,
+    pub biography: Option<String>,
+    pub css: Option<String>,
 }
 
 #[derive(Debug, sqlx::FromRow)]

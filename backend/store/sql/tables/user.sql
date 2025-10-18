@@ -13,4 +13,4 @@ CREATE TABLE users
   UNIQUE (name)
 );
 
-SELECT manage_updated_at('user'); -- Automatically manage updated_at
+SELECT manage_updated_at('users'); -- Automatically manage updated_at

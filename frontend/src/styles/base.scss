@@ -5,3 +5,11 @@
 .buffer {
   flex-grow: 1;
 }
+
+button.delete-button {
+  color: red;
+}
+
+button.delete-button:hover {
+  color: rgb(195, 0, 0);
+}

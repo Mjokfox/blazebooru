@@ -7,6 +7,7 @@ import { useAuthStore } from "./auth";
 
 import type { PageInfo, Post, UpdatePost } from "@/models/api/post";
 import type { SysConfig } from "@/models/api/sys";
+import type { AdminUpdateUser, User, UserUpdateUser } from "@/models/api/user";
 import { DEFAULT_SETTINGS, type Settings } from "@/models/settings";
 
 export interface Search {
@@ -116,6 +117,38 @@ export const useMainStore = defineStore("main", () => {
     });
 
     return res.data;
+  }
+
+  async function getPublicUserProfile(username: string) {
+    const res = await axios.get<User>("/api/user/pubprofile", {
+      params: {
+        name: username,
+      }
+    });
+
+    return res.data;
+  }
+
+  async function getAllPublicUsers() {
+    const res = await axios.get<User[]>("/api/user/all");
+
+    return res.data;
+  }
+
+  async function updateUser(id: number, update_post: UserUpdateUser | AdminUpdateUser) {
+    await axios.post(`/api/user/${id}`, update_post, {
+      headers: await authStore.getAuthHeaders(),
+    });
+
+    return true;
+  }
+
+  async function deleteUser(id: number) {
+    await axios.delete(`/api/user/${id}`, {
+      headers: await authStore.getAuthHeaders(),
+    });
+
+    return true;
   }
 
   async function calculatePages(origin_page?: PageInfo, page_count?: number) {
@@ -314,6 +347,10 @@ export const useMainStore = defineStore("main", () => {
     getPageNumbers,
     clearSearch,
     getPost,
+    getPublicUserProfile,
+    getAllPublicUsers,
+    updateUser,
+    deleteUser,
     loadPage,
     loadLastPage,
     refresh,

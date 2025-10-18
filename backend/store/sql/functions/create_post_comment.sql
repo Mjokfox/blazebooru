@@ -18,7 +18,7 @@ BEGIN
   )
   SELECT
     p_user_id, -- user_id
-    (SELECT name FROM susers WHERE id = p_user_id), -- user_name
+    (SELECT name FROM users WHERE id = p_user_id), -- user_name
     p_comment.post_id, -- post_id
     p_comment.comment -- comment
   RETURNING * INTO v_comment;

@@ -7,6 +7,8 @@ import RegisterView from "@/views/RegisterView.vue";
 import TagsView from "@/views/TagsView.vue";
 import UploadProgressView from "@/views/UploadProgressView.vue";
 import UploadView from "@/views/UploadView.vue";
+import UserView from "@/views/UserView.vue";
+import AllUserView from "@/views/AllUserView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -49,6 +51,22 @@ const router = createRouter({
           id: Number(r.params.id),
         };
       },
+    },
+    {
+      path: "/user/:name",
+      name: "user",
+      component: UserView,
+      props: (r) => {
+        return {
+          ...r.params,
+          name: r.params.name,
+        };
+      },
+    },
+    {
+      path: "/users",
+      name: "users",
+      component: AllUserView,
     },
     {
       path: "/tags",

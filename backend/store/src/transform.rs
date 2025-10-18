@@ -31,6 +31,20 @@ impl From<dbm::User> for vm::User {
             created_at: u.created_at,
             name: u.name,
             rank: u.rank,
+            biography: u.biography,
+            css: u.css
+        }
+    }
+}
+
+impl From<dbm::User> for vm::PublicUser {
+    fn from(u: dbm::User) -> Self {
+        vm::PublicUser {
+            id: u.id,
+            created_at: u.created_at,
+            name: u.name,
+            rank: u.rank,
+            biography: u.biography
         }
     }
 }
@@ -139,5 +153,15 @@ pub fn dbm_update_post_from_vm(id: i32, p: vm::UpdatePost) -> dbm::UpdatePost {
         source: p.source.filter(|v| !v.is_empty()),
         add_tags: p.add_tags,
         remove_tags: p.remove_tags,
+    }
+}
+
+pub fn dbm_update_user_from_vm(id: i32, p: vm::UpdateUser) -> dbm::UpdateUser {
+    dbm::UpdateUser {
+        id: Some(id),
+        name: p.name,
+        rank: p.rank,
+        biography: p.biography,
+        css: p.css
     }
 }

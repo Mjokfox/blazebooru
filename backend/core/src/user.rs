@@ -8,7 +8,7 @@ use regex::Regex;
 
 use blazebooru_models::local as lm;
 use blazebooru_models::view as vm;
-use blazebooru_store::models as dbm;
+use blazebooru_store::{models as dbm, transform::dbm_update_user_from_vm};
 
 use super::BlazeBooruCore;
 
@@ -52,5 +52,30 @@ impl BlazeBooruCore {
         let user = self.store.get_user(user_id).await?;
 
         Ok(user.map(vm::User::from))
+    }
+
+    pub async fn get_public_user_profile(&self, username: &str) -> Result<Option<vm::PublicUser>, anyhow::Error> {
+        let user = self.store.get_user_by_name(username).await?;
+
+        Ok(user.map(vm::PublicUser::from))
+    }
+
+    pub async fn get_all_users(&self) -> Result<Vec<vm::PublicUser>, anyhow::Error> {
+        let users = self.store.get_all_users().await?;
+
+        Ok(users.into_iter().map(vm::PublicUser::from).collect())
+    }
+
+    pub async fn update_user(&self, id: i32, request: vm::UpdateUser) -> Result<bool, anyhow::Error> {
+        let update_post: dbm::UpdateUser = dbm_update_user_from_vm(id, request);
+        let success = self.store.update_user(&update_post).await?;
+
+        Ok(success)
+    }
+
+    pub async fn delete_user(&self, id: i32) -> Result<bool, anyhow::Error> {
+        let success = self.store.delete_user(id).await?;
+
+        Ok(success)
     }
 }

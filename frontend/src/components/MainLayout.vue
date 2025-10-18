@@ -63,10 +63,18 @@ const logout = async () => {
         </span>
       </nav>
       <span v-if="authStore.isAuthorized" class="user-authorized">
-        <span class="username" :class="{ admin: authStore.isAdmin }">
-          <span v-if="!authStore.isAdmin"><i class="fa-solid fa-user"></i></span>
-          <span v-if="authStore.isAdmin"><i class="fa-solid fa-crown"></i></span>
-          {{ authStore.userProfile?.name }}
+        <router-link v-if="authStore.userProfile?.name"
+        :to="{ name: 'user', params: { name: authStore.userProfile.name } }"
+        >
+          <span class="username" :class="{ admin: authStore.isAdmin }">
+            <span v-if="!authStore.isAdmin"><i class="fa-solid fa-user"></i></span>
+            <span v-if="authStore.isAdmin"><i class="fa-solid fa-crown"></i></span>
+            {{ authStore.userProfile?.name }}
+          </span>
+        </router-link>
+        <span v-else class="username placeholder">
+          <i class="fa-solid fa-user"></i>
+          Loading...
         </span>
         <span class="bar-item logout">
           [

@@ -1,5 +1,5 @@
 import { useStorage } from "@vueuse/core";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 
@@ -94,8 +94,12 @@ export const useAuthStore = defineStore("auth", () => {
       });
 
       userProfile.value = res.data;
-    } catch {
-      userProfile.value = undefined;
+    } catch (e) {
+      if (isAxiosError(e) && e.status === 404) {
+        clearAuth();
+      } else {
+        userProfile.value = undefined;
+      }
     }
   }
 
@@ -145,6 +149,7 @@ export const useAuthStore = defineStore("auth", () => {
     isAuthorized,
     isAdmin,
     userProfile,
+    getUserProfile,
     getAccessToken,
     getAuthHeaders,
     login,

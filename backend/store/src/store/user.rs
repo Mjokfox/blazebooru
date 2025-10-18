@@ -12,6 +12,24 @@ impl PgStore {
         Ok(post)
     }
 
+    pub async fn update_user(&self, user: &dbm::UpdateUser) -> Result<bool, StoreError> {
+        let success = sqlx::query_scalar_unchecked!(r#"SELECT update_user($1);"#, user)
+            .fetch_one(&self.pool)
+            .await
+            .context("Error updating post in database")?;
+        
+        Ok(success.unwrap())
+    }
+
+    pub async fn delete_user(&self, to_delete_id: i32) -> Result<bool, StoreError> {
+        let success = sqlx::query_scalar_unchecked!(r#"SELECT delete_user($1);"#, to_delete_id)
+        .fetch_one(&self.pool)
+        .await
+        .context("Error deleting post in database")?;
+        
+        Ok(success.unwrap())
+    }
+
     pub async fn get_user(&self, id: i32) -> Result<Option<dbm::User>, StoreError> {
         let user = sqlx::query_as!(dbm::User, r#"SELECT * FROM users WHERE id = $1;"#, id)
             .fetch_optional(&self.pool)
@@ -28,5 +46,14 @@ impl PgStore {
             .context("Error getting user from database by name")?;
 
         Ok(user)
+    }
+
+    pub async fn get_all_users(&self) -> Result<Vec<dbm::User>, StoreError> {
+        let users = sqlx::query_as!(dbm::User, r#"SELECT * FROM users ORDER BY id ASC"#)
+            .fetch_all(&self.pool)
+            .await
+            .context("Error getting user from database by name")?;
+
+        Ok(users)
     }
 }

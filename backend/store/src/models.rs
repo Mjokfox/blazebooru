@@ -118,6 +118,16 @@ pub struct NewUser {
 }
 
 #[derive(Debug, sqlx::Type)]
+#[sqlx(type_name = "update_user")]
+pub struct UpdateUser {
+    pub id: Option<i32>,
+    pub name: Option<String>,
+    pub rank: Option<i16>,
+    pub biography: Option<String>,
+    pub css: Option<String>,
+}
+
+#[derive(Debug, sqlx::Type)]
 #[sqlx(type_name = "new_post_comment")]
 pub struct NewPostComment {
     pub post_id: i32,

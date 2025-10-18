@@ -72,6 +72,25 @@ pub struct User {
     pub created_at: DateTime<Utc>,
     pub name: String,
     pub rank: i16,
+    pub biography: Option<String>,
+    pub css: Option<String>,
+}
+
+#[derive(Debug, Serialize)]
+pub struct PublicUser {
+    pub id: i32,
+    pub created_at: DateTime<Utc>,
+    pub name: String,
+    pub rank: i16,
+    pub biography: Option<String>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct UpdateUser {
+    pub name: Option<String>,
+    pub rank: Option<i16>,
+    pub biography: Option<String>,
+    pub css: Option<String>,
 }
 
 #[derive(Debug, Serialize)]

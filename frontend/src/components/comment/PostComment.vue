@@ -38,7 +38,10 @@ const formatTime = (value: string): string => {
   <div class="post-comment">
     <div class="header">
       <span class="time" title="Timestamp">{{ formatTime(comment.created_at) }}</span>
-      <span class="name" title="Poster">{{ comment.user_name || "Anonymous" }}</span>
+      <router-link v-if="comment.user_name" :to="{ name: 'user', params: { name: comment.user_name } }">
+        <span class="name" title="Poster">{{ comment.user_name }}</span>
+      </router-link>
+      <span v-else class="name" title="Poster">{{ "Anonymous" }}</span>
       <button class="link-button">No.</button>
       <button class="link-button">{{ comment.id }}</button>
     </div>

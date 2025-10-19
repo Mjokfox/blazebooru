@@ -123,7 +123,7 @@ const deleteUser = () => {
     </form>
     <hr />
     <div class="actions">
-      <button  class="edit-button link-button" @click="toggleEdit">
+      <button v-if="can_edit_profile" class="edit-button link-button" @click="toggleEdit">
         <i class="fa-solid fa-pen-to-square"></i> Edit
       </button>
       <button v-if="isAdmin" class="delete-button link-button" @click="confirmDelete?.show()">

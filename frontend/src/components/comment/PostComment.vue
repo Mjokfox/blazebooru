@@ -5,6 +5,7 @@ import { toRefs } from "vue";
 import CommentText from "./CommentText.vue";
 
 import type { Comment } from "@/models/api/comment";
+import UserLink from "../user/UserLink.vue";
 
 interface Props {
   comment: Comment;
@@ -38,9 +39,9 @@ const formatTime = (value: string): string => {
   <div class="post-comment">
     <div class="header">
       <span class="time" title="Timestamp">{{ formatTime(comment.created_at) }}</span>
-      <router-link v-if="comment.user_name" :to="{ name: 'user', params: { name: comment.user_name } }">
+      <UserLink v-if="comment.user_name" :name="comment.user_name">
         <span class="name" title="Poster">{{ comment.user_name }}</span>
-      </router-link>
+      </UserLink>
       <span v-else class="name" title="Poster">{{ "Anonymous" }}</span>
       <button class="link-button">No.</button>
       <button class="link-button">{{ comment.id }}</button>

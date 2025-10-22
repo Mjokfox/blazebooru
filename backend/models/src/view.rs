@@ -105,3 +105,37 @@ pub struct Config {
     pub require_login: bool,
     pub allow_registration: bool,
 }
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct WikiPage {
+    pub id: i32,
+    pub creator_id: i32,
+    pub creator_name: String,
+    pub title: String,
+    pub body: String,
+    pub locked: bool,
+    pub created_at: DateTime<Utc>,
+    pub revision: i32,
+    pub updated_at: DateTime<Utc>,
+    pub updater_id: Option<i32>,
+    pub updater_name: Option<String>
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct NewWikiPage {
+    pub user_id: i32,
+    pub title: String,
+    pub body: String,
+    pub locked: bool,
+    pub reason: String
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct UpdateWikiPage {
+    pub id: i32,
+    pub title: String,
+    pub body: String,
+    pub locked: bool,
+    pub deleted: bool,
+    pub reason: String
+}

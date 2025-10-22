@@ -3,6 +3,7 @@ mod comment;
 mod post;
 mod tag;
 mod user;
+mod wiki;
 
 use anyhow::Context;
 use thiserror::Error;

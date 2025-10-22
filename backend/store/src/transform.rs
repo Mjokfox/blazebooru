@@ -145,6 +145,48 @@ impl From<vm::UpdateTag> for dbm::UpdateTag {
     }
 }
 
+impl From<dbm::WikiPage> for vm::WikiPage {
+    fn from(w: dbm::WikiPage) -> Self {
+        vm::WikiPage {
+            id: w.id.unwrap(),
+            creator_id: w.creator_id.unwrap(),
+            creator_name: w.creator_name.unwrap(),
+            title: w.title.unwrap(),
+            body: w.body.unwrap(),
+            locked: w.locked.unwrap(),
+            created_at: w.created_at.unwrap(),
+            revision: w.revision.unwrap(),
+            updated_at: w.updated_at.unwrap(),
+            updater_id: w.updater_id,
+            updater_name: w.updater_name
+        }
+    }
+}
+
+impl From<vm::NewWikiPage> for dbm::NewWikiPage {
+    fn from(w: vm::NewWikiPage) -> Self {
+        dbm::NewWikiPage {
+            title: w.title,
+            body: w.body,
+            locked: w.locked,
+            reason: w.reason
+        }
+    }
+}
+
+impl From<vm::UpdateWikiPage> for dbm::UpdateWikiPage {
+    fn from(w: vm::UpdateWikiPage) -> Self {
+        dbm::UpdateWikiPage {
+            id: w.id,
+            title: w.title,
+            body: w.body,
+            locked: w.locked,
+            deleted: w.deleted,
+            reason: w.reason
+        }
+    }
+}
+
 pub fn dbm_update_post_from_vm(id: i32, p: vm::UpdatePost) -> dbm::UpdatePost {
     dbm::UpdatePost {
         id: Some(id),

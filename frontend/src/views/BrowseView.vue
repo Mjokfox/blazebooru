@@ -138,6 +138,11 @@ const excludeTag = (tag: string) => {
 const setTag = (tag: string) => {
   search.value.tags = [tag];
 };
+
+const wikiTag = (tag: string) => {
+  router.push({ name: 'wiki', params: { name: tag }})
+};
+
 </script>
 
 <template>
@@ -150,6 +155,7 @@ const setTag = (tag: string) => {
           <label>Tags:</label>
           <div class="tags">
             <div v-for="(t, i) of mainStore.currentTags" :key="i" class="tag">
+              <button class="tag-button link-button" @click="wikiTag(t)">?</button>
               <button class="tag-button link-button" @click="includeTag(t)">+</button>
               <button class="tag-button link-button" @click="excludeTag(t)">-</button>
               <button class="tag-text link-button" :class="{ included: search.tags.includes(t) }" @click="setTag(t)">

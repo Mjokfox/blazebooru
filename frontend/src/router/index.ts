@@ -9,6 +9,8 @@ import UploadProgressView from "@/views/UploadProgressView.vue";
 import UploadView from "@/views/UploadView.vue";
 import UserView from "@/views/UserView.vue";
 import UserListView from "@/views/UserListView.vue";
+import WikiListView from "@/views/WikiListView.vue";
+import WikiView from "@/views/WikiView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -82,6 +84,22 @@ const router = createRouter({
       path: "/upload-progress",
       name: "upload-progress",
       component: UploadProgressView,
+    },
+    {
+      path: "/wiki",
+      name: "wiki-list",
+      component: WikiListView,
+    },
+    {
+      path: "/wiki/:name",
+      name: "wiki",
+      component: WikiView,
+      props: (r) => {
+        return {
+          ...r.params,
+          name: r.params.name,
+        };
+      },
     },
   ],
 });

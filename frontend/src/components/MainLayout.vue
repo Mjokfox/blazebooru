@@ -7,6 +7,8 @@ import { useMainStore } from "@/stores/main";
 import { useUploadStore } from "@/stores/upload";
 import { useResizeObserver } from "@vueuse/core";
 
+import UserLink from "@/components/user/UserLink.vue";
+
 const router = useRouter();
 
 const authStore = useAuthStore();
@@ -61,17 +63,18 @@ const logout = async () => {
         <span v-if="authStore.isAdmin" class="bar-item tags admin">
           [ <router-link :to="{ name: 'tags' }">Tags</router-link> ]
         </span>
+        <span class="bar-item wiki">
+          [ <router-link :to="{ name: 'wiki-list' }">Wiki</router-link> ]
+        </span>
       </nav>
       <span v-if="authStore.isAuthorized" class="user-authorized">
-        <router-link v-if="authStore.userProfile?.name"
-        :to="{ name: 'user', params: { name: authStore.userProfile.name } }"
-        >
+        <UserLink v-if="authStore.userProfile?.name" :name="authStore.userProfile.name">
           <span class="username" :class="{ admin: authStore.isAdmin }">
             <span v-if="!authStore.isAdmin"><i class="fa-solid fa-user"></i></span>
             <span v-if="authStore.isAdmin"><i class="fa-solid fa-crown"></i></span>
             {{ authStore.userProfile?.name }}
           </span>
-        </router-link>
+        </UserLink>
         <span v-else class="username placeholder">
           <i class="fa-solid fa-user"></i>
           Loading...

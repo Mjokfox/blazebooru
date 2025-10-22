@@ -13,6 +13,7 @@ pub mod image;
 mod post;
 mod tag;
 mod user;
+mod wiki;
 
 pub struct BlazeBooruCore {
     pub temp_path: PathBuf,

@@ -7,6 +7,7 @@ import TagsEditor from "@/components/tag/TagsEditor.vue";
 
 import type { Post, PostInfo, UpdatePost } from "@/models/api/post";
 import { make_image_path } from "@/utils/path";
+import UserLink from "../user/UserLink.vue";
 
 interface Props {
   post: Post;
@@ -88,9 +89,9 @@ const clickTag = (tag: string) => {
 <template>
   <div class="post-info">
     <div class="header">
-      <router-link :to="{ name: 'user', params: { name: post.user_name } }">
+      <UserLink :name="post.user_name">
         <div class="uploader" title="Uploader"><i class="fa-solid fa-user"></i> {{ post.user_name }}</div>
-      </router-link>
+      </UserLink>
       <div class="actions">
         <a :href="make_image_path(post)" :download="post.filename"><i class="fa-solid fa-download"></i> Download</a>
         <button v-if="can_edit_post" class="delete-button link-button" @click="confirmDelete?.show()">

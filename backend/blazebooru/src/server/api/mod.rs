@@ -3,6 +3,7 @@ mod post;
 mod sys;
 mod tag;
 mod user;
+mod wiki;
 
 use std::sync::Arc;
 
@@ -36,6 +37,7 @@ pub fn router(config: &BlazeBooruConfig) -> Router<Arc<BlazeBooruServer>> {
     let sys = sys::router();
     let user = user::router();
     let tag = tag::router();
+    let wiki = wiki::router();
 
     Router::new()
         .nest("/auth", auth)
@@ -43,6 +45,7 @@ pub fn router(config: &BlazeBooruConfig) -> Router<Arc<BlazeBooruServer>> {
         .nest("/post", post)
         .nest("/user", user)
         .nest("/tag", tag)
+        .nest("/wiki", wiki)
 }
 
 impl IntoResponse for AuthError {

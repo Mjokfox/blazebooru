@@ -7,6 +7,7 @@ import { useMainStore } from "@/stores/main";
 
 import type { User as UserModel } from "@/models/api/user";
 import axios from "axios";
+import UserLink from "@/components/user/UserLink.vue";
 
 const route = useRoute();
 
@@ -68,17 +69,13 @@ const formatDate = (isoString: string) => {
                 {{ u.id }}
               </td>
               <td>
-                <router-link
-                    :key="u.id"
-                    :to="{ name: 'user', params: { name: u.name } }"
-                    class="user"
-                  >
+                <UserLink :name="u.name" :key="u.id" class="user">
                     <span class="username" :class="{ admin: u.rank > 0 }">
                       <span v-if="u.rank <= 0"><i class="fa-solid fa-user"></i></span>
                       <span v-if="u.rank > 0"><i class="fa-solid fa-crown"></i></span>
                       {{ u.name }}
                     </span>
-                </router-link>
+                  </UserLink>
               </td>
               <td>
                 {{ u.rank }}

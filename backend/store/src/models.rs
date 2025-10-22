@@ -1,4 +1,5 @@
 use chrono::{DateTime, Utc};
+use sqlx::types::ipnetwork::IpNetwork;
 use uuid::Uuid;
 
 #[derive(Debug, sqlx::FromRow)]
@@ -50,6 +51,24 @@ pub struct ViewPost {
     pub ext: Option<String>,
     pub tn_ext: Option<String>,
     pub tags: Option<Vec<String>>,
+}
+
+#[derive(Debug, sqlx::FromRow)]
+pub struct WikiPage {
+    pub id: Option<i32>,
+    pub creator_id: Option<i32>,
+    pub creator_name: Option<String>,
+    pub title: Option<String>,
+    pub body: Option<String>,
+    pub locked: Option<bool>,
+    pub created_at: Option<DateTime<Utc>>,
+    pub revision: Option<i32>,
+    pub updated_at: Option<DateTime<Utc>>,
+    pub updater_id: Option<i32>,
+    pub updater_name: Option<String>,
+    pub updater_ip: Option<IpNetwork>,
+    pub deleted: Option<bool>,
+    pub reason: Option<String>
 }
 
 #[derive(Debug, sqlx::FromRow)]
@@ -154,4 +173,24 @@ pub struct RefreshRefreshTokenResult {
     pub token: Option<Uuid>,
     pub session: Option<i64>,
     pub user_id: Option<i32>,
+}
+
+#[derive(Debug, sqlx::Type)]
+#[sqlx(type_name = "new_wiki")]
+pub struct NewWikiPage {
+    pub title: String,
+    pub body: String,
+    pub locked: bool,
+    pub reason: String
+}
+
+#[derive(Debug, sqlx::Type)]
+#[sqlx(type_name = "update_wiki")]
+pub struct UpdateWikiPage {
+    pub id: i32,
+    pub title: String,
+    pub body: String,
+    pub locked: bool,
+    pub deleted: bool,
+    pub reason: String
 }

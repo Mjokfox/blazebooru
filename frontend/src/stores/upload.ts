@@ -1,6 +1,6 @@
 import axios, { type AxiosError } from "axios";
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 import { useAuthStore } from "./auth";
 
@@ -27,6 +27,7 @@ export const useUploadStore = defineStore("upload", () => {
   const authStore = useAuthStore();
 
   const isUploading = ref<boolean>(false);
+  const hasQueuedPosts = computed(() => queuedPosts.value.length > 0);
 
   const commonTags = ref<string[]>([]);
   const stagedPosts = ref<StagedPost[]>([]);
@@ -157,6 +158,7 @@ export const useUploadStore = defineStore("upload", () => {
 
   return {
     isUploading,
+    hasQueuedPosts,
     commonTags,
     stagedPosts,
     queuedPosts,

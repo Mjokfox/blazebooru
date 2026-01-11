@@ -1,10 +1,10 @@
 use std::path::Path;
 
+use anyhow::anyhow;
 use blazebooru_models::export as em;
 use blazebooru_models::local as lm;
 use blazebooru_models::view as vm;
 use blazebooru_store::models as dbm;
-
 use blazebooru_store::transform::dbm_update_post_from_vm;
 
 use crate::image::ProcessFileResult;
@@ -22,6 +22,15 @@ impl BlazeBooruCore {
             .await?;
 
         let ProcessFileResult { hash, ext, .. } = &process_file_result;
+
+        // Check whether there are existing posts with the same hash
+        let identical_posts = self.store.get_posts_by_hash(hash).await?;
+        if let Some(identical_post) = identical_posts.iter().next() {
+            return Err(anyhow!(
+                "Another post with the same file already exists with ID: {}",
+                identical_post.id,
+            ));
+        }
 
         // Process image and generate thumbnail
         let ProcessImageResult { width, height, tn_ext } = self.process_image(&process_file_result).await?;

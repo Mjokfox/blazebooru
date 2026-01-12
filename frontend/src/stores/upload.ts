@@ -13,6 +13,7 @@ export interface StagedPost {
   source: string;
   tags: string[];
   previewUrl: string;
+  previewType: string;
 }
 
 export interface QueuedUploadPost extends StagedPost {

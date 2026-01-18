@@ -33,12 +33,13 @@ watch(route, () => {
 });
 
 onMounted(async () => {
-    await fetchUser();
+  await fetchUser();
 });
 
 const fetchUser = async () => {
   error.value = null;
   try {
+    await authStore.isInitialized();
     if (authStore.userProfile?.name === name.value) {
       user.value = authStore.userProfile;
     } else {

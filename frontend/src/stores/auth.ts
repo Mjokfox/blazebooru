@@ -103,6 +103,10 @@ export const useAuthStore = defineStore("auth", () => {
     }
   }
 
+  function getUserProfileRef() {
+    return userProfile;
+  }
+
   async function logout() {
     if (!isAuthorized.value) {
       return;
@@ -150,6 +154,7 @@ export const useAuthStore = defineStore("auth", () => {
     isAdmin,
     userProfile,
     getUserProfile,
+    getUserProfileRef: getUserProfileRef,
     getAccessToken,
     getAuthHeaders,
     login,

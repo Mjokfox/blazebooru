@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { watch, ref } from "vue";
 import { useRouter } from "vue-router";
 
 import { useAuthStore } from "@/stores/auth";
 import { useMainStore } from "@/stores/main";
 import { useUploadStore } from "@/stores/upload";
-import { useResizeObserver } from "@vueuse/core";
+import { useResizeObserver, useStyleTag } from "@vueuse/core";
 
 import UserLink from "@/components/user/UserLink.vue";
 
@@ -35,6 +35,19 @@ const logout = async () => {
     return;
   }
 };
+
+const userCss = useStyleTag(authStore.userProfile?.css ?? "");
+
+const userProfileRef = authStore.getUserProfileRef();
+
+watch(userProfileRef, () => {
+  if (userProfileRef.value) {
+    userCss.css.value = userProfileRef.value.css;
+  } else {
+    userCss.unload()
+  }}
+);
+
 </script>
 
 <template>

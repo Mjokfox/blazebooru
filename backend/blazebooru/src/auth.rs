@@ -56,7 +56,7 @@ impl BlazeBooruAuth {
         Ok(token)
     }
 
-    pub fn verify<T: DeserializeOwned>(&self, token: &str) -> Result<T, AuthError> {
+    pub fn verify<T: Clone + DeserializeOwned>(&self, token: &str) -> Result<T, AuthError> {
         let token_data = jsonwebtoken::decode::<JwtClaims<T>>(token, &self.keys.decoding, &Validation::default())
             .map_err(|err| match err.kind() {
                 ErrorKind::ExpiredSignature => AuthError::ExpiredToken,
